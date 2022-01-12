@@ -12,8 +12,8 @@ function winningAlert(winner) {
 
 // SAMPLE CODE: This code fills the 1st and 9th button with X and O initially
 // ❗️ Delete this code once you are done testing
-fillButton(1, "X");
-fillButton(9, "O");
+//fillButton(1, "X");
+//fillButton(9, "O");
 
 /**
  *
@@ -22,10 +22,45 @@ fillButton(9, "O");
  * Add your code here, since this is going to be your main function
  * That interacts with the UI
  */
+const filled = [];
+filled.push("");
+let counter = 0;
 function clickButton(index) {
   console.log(`Button number ${index} is clicked`);
-  // Your main code here.
-}
+
+  if (filled.length > 18) {
+    if (
+      (filled[2] === "X" && filled[4] === "X" && filled[6] === "X") ||
+      (filled[8] === "X" && filled[10] === "X" && filled[12] === "X") ||
+      (filled[14] === "X" && filled[16] === "X" && filled[18] === "X") ||
+      (filled[2] === "X" && filled[8] === "X" && filled[14] === "X") ||
+      (filled[4] === "X" && filled[10] === "X" && filled[16] === "X") ||
+      (filled[6] === "X" && filled[12] === "X" && filled[18] === "X") ||
+      (filled[6] === "X" && filled[10] === "X" && filled[14] === "X") ||
+      (filled[2] === "X" && filled[10] === "X" && filled[18] === "X")
+    ) {
+      winningAlert("X");
+    }
+  } else {
+    if (filled.some((element) => element === index)) {
+    } else {
+      filled.push(index);
+      counter++;
+      if (counter % 2 === 1) {
+        fillButton(index, "X");
+        filled.push("X");
+      } else {
+        fillButton(index, "O");
+        filled.push("O");
+      }
+    }
+    console.log(filled.length);
+    console.log(counter);
+  }
+  console.log(filled[2]);
+} // filled.push(index);
+
+// }
 
 /**
  * 👇🏻 BELOW are functions that you CAN use to structure your code properly.
@@ -34,8 +69,14 @@ function clickButton(index) {
  */
 
 // In this function you should check if the player is X or O
-function checkPlayer() {
-  // ....
+function checkPlayer(index) {
+  if (getElementById(index) === "X") {
+    return "P1";
+  } else if (document.getElementById(index) === "O") {
+    return "P2";
+  } else {
+    return null;
+  }
 }
 
 /**
